@@ -1,0 +1,42 @@
+[
+  {
+    "chunk_id": "hier-1",
+    "strategy": "hierarchical",
+    "source": "Luat TCTD 2024.pdf",
+    "page_start": 1,
+    "page_end": 1,
+    "text": "Điều 1. Phạm vi điều chỉnh\nLuật này quy định về việc thành lập, tổ chức, hoạt động, can thiệp sớm, kiểm soát đặc biệt, tổ chức lại, giải thể, phá sản tổ chức tín dụng."
+  },
+  {
+    "chunk_id": "hier-2",
+    "strategy": "hierarchical",
+    "source": "Luat TCTD 2024.pdf",
+    "page_start": 2,
+    "page_end": 3,
+    "text": "Điều 2. Đối tượng áp dụng\n1. Tổ chức tín dụng.\n2. Chi nhánh ngân hàng nước ngoài.\n3. Văn phòng đại diện của tổ chức tín dụng nước ngoài."
+  },
+  {
+    "chunk_id": "hier-3",
+    "strategy": "hierarchical",
+    "source": "Luat TCTD 2024.pdf",
+    "page_start": 4,
+    "page_end": 4,
+    "text": "Điều 3. Áp dụng Luật Tổ chức tín dụng\nTrường hợp có quy định khác nhau giữa Luật này và luật khác thì áp dụng Luật này."
+  },
+  {
+    "chunk_id": "sem-1",
+    "strategy": "semantic",
+    "source": "Luat TCTD 2024.pdf",
+    "page_start": 5,
+    "page_end": 5,
+    "text": "Ngân hàng thương mại là loại hình tổ chức tín dụng được thực hiện tất cả các hoạt động ngân hàng."
+  },
+  {
+    "chunk_id": "fix-1",
+    "strategy": "fixed-size",
+    "source": "Luat TCTD 2024.pdf",
+    "page_start": 6,
+    "page_end": 6,
+    "text": "Khoản cấp tín dụng là việc thỏa thuận để tổ chức, cá nhân sử dụng một khoản tiền."
+  }
+]
