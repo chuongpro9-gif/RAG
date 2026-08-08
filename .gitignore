@@ -12,5 +12,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Database & Storage
+*.sqlite
+storage/
+
 # Mac/OS
 .DS_Store
