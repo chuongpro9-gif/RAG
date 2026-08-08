@@ -1,0 +1,37 @@
+[
+    {
+        "chunk_id": "chunk_dieu_7",
+        "text": "Điều 7. Cơ cấu lại thời hạn trả nợ. Tổ chức tín dụng có quyền xem xét cơ cấu lại thời hạn trả nợ.",
+        "source": "tt_02.pdf",
+        "page_start": 2,
+        "page_end": 2
+    },
+    {
+        "chunk_id": "chunk_dieu_7_paraphrase",
+        "text": "Khách hàng vay vốn nếu gặp biến cố tài chính thì có thể nộp đơn xin ngân hàng điều chỉnh lại lịch trả tiền dài hơn so với cam kết ban đầu.",
+        "source": "tt_02.pdf",
+        "page_start": 3,
+        "page_end": 3
+    },
+    {
+        "chunk_id": "chunk_phan_loai",
+        "text": "Phân loại nợ và trích lập dự phòng rủi ro. Tổ chức tín dụng phải thực hiện đánh giá nợ định kỳ.",
+        "source": "tt_02.pdf",
+        "page_start": 4,
+        "page_end": 4
+    },
+    {
+        "chunk_id": "chunk_noise_1",
+        "text": "Điều 8. Quy định về phí dịch vụ thanh toán. Không liên quan đến nợ.",
+        "source": "tt_02.pdf",
+        "page_start": 5,
+        "page_end": 5
+    },
+    {
+        "chunk_id": "chunk_noise_2",
+        "text": "Điều 9 khoản 2. Các hình thức tín dụng khác. Ngân hàng cung cấp nhiều dịch vụ.",
+        "source": "tt_02.pdf",
+        "page_start": 6,
+        "page_end": 6
+    }
+]

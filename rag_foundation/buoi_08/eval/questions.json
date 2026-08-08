@@ -1,0 +1,30 @@
+[
+    {
+        "query_id": "Q01",
+        "question": "Điều 7 quy định như thế nào về cơ cấu lại thời hạn trả nợ?",
+        "relevant_chunk_ids": ["chunk_dieu_7"],
+        "scope": "in_scope",
+        "needs_human_review": true
+    },
+    {
+        "query_id": "Q02",
+        "question": "Khách hàng gặp khó khăn có thể được điều chỉnh kỳ hạn trả nợ ra sao?",
+        "relevant_chunk_ids": ["chunk_dieu_7_paraphrase"],
+        "scope": "in_scope",
+        "needs_human_review": true
+    },
+    {
+        "query_id": "Q03",
+        "question": "Phân loại nợ và trích lập dự phòng được thực hiện như thế nào?",
+        "relevant_chunk_ids": ["chunk_phan_loai"],
+        "scope": "in_scope",
+        "needs_human_review": true
+    },
+    {
+        "query_id": "Q04",
+        "question": "Ngân hàng nào có lãi suất tiết kiệm cao nhất hôm nay?",
+        "relevant_chunk_ids": [],
+        "scope": "out_of_scope",
+        "needs_human_review": true
+    }
+]
