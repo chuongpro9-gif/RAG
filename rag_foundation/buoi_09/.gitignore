@@ -1,0 +1,7 @@
+.env
+__pycache__/
+*.pyc
+storage/chroma/
+storage/hierarchy/
+storage/huggingface/
+.pytest_cache/

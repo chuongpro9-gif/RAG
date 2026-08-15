@@ -9,10 +9,8 @@ class TestPipeline(unittest.TestCase):
     @patch("rag.load_chunks")
     def test_query_skip_generation(self, mock_load, mock_rerank, mock_sem, mock_bm25):
         # 13. Pipeline mode check.
-        mock_load.return_value = [{"chunk_id": "c1", "strategy": "hierarchical", "text": "t"}]
+        mock_load.return_value = ([{"chunk_id": "c1", "strategy": "hierarchical", "text": "t"}], {})
         mock_bm25.return_value = [{"chunk_id": "c1", "bm25_rank": 1, "text": "t"}]
-        
-        # Test bm25
         ans, chunks, trace = query_advanced("Q", "hierarchical", "bm25", skip_generation=True)
         self.assertEqual(ans, "")
         self.assertEqual(len(chunks), 1)
