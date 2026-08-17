@@ -1,4 +1,7 @@
 import os
+import sys
+if sys.stdout and hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
 from pathlib import Path
 from neo4j import GraphDatabase
 from sentence_transformers import SentenceTransformer

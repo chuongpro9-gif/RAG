@@ -343,8 +343,8 @@ def cli_hybrid(args):
     print(json.dumps(trace, indent=2))
     
     for c in res:
-        print(f"[{c['fused_rank']}] RRF: {c['rrf_score']:.4f} | ID: {c['chunk_id']} | Matched: {c['matched_by']}")
-        print(f"  BM25 Rank: {c['bm25_rank']} | Sem Rank: {c['semantic_rank']}")
+        print(f"[{c.get('fused_rank', '?')}] RRF: {c.get('rrf_score', 0):.4f} | ID: {c.get('chunk_id', 'N/A')} | Matched: {c.get('matched_by', [])}")
+        print(f"  BM25 Rank: {c.get('bm25_rank', 'N/A')} | Sem Rank: {c.get('semantic_rank', 'N/A')}")
 
 _reranker_model_cache = None
 _reranker_tokenizer_cache = None
@@ -432,12 +432,12 @@ def rerank_candidates(question: str, candidates: list[dict], fake_reranker=None)
     # 1. rerank_score desc
     # 2. fused_rank asc
     # 3. chunk_id asc
-    to_rerank.sort(key=lambda x: (-x["rerank_score"], x["fused_rank"], x["chunk_id"]))
+    to_rerank.sort(key=lambda x: (-x.get("rerank_score", 0), x.get("fused_rank", 999), x.get("chunk_id", "")))
     
     results = []
     for rank, c in enumerate(to_rerank, start=1):
         c["rerank_rank"] = rank
-        c["rank_change"] = c["fused_rank"] - rank
+        c["rank_change"] = c.get("fused_rank", rank) - rank
         results.append(c)
         
     t_total = time.perf_counter() - t_start
@@ -467,8 +467,8 @@ def cli_rerank(args):
     print(f"\n--- RERANK RESULTS ---")
     print(f"Rerank latency: {latency:.2f}ms")
     for c in final_res:
-        print(f"[{c['rerank_rank']}] (change {c['rank_change']:+}) Score: {c['rerank_score']:.4f} | ID: {c['chunk_id']}")
-        print(f"  Fused Rank: {c['fused_rank']} | RRF: {c['rrf_score']:.4f}")
+        print(f"[{c.get('rerank_rank', '?')}] (change {c.get('rank_change', 0):+}) Score: {c.get('rerank_score', 0):.4f} | ID: {c.get('chunk_id', 'N/A')}")
+        print(f"  Fused Rank: {c.get('fused_rank', 'N/A')} | RRF: {c.get('rrf_score', 0):.4f}")
 
 def query_advanced(question: str, strategy: str, mode: str, skip_generation: bool = False):
     """
