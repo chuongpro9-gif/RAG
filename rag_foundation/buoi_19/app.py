@@ -13,10 +13,10 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 from scripts.internal_lookup import InternalLookup
 from scripts.compliance_gap import ComplianceGapChecker
 
-st.set_page_config(page_title="Hệ thống RAG - Buổi 17", layout="wide")
+st.set_page_config(page_title="Hệ thống RAG - Buổi 19", layout="wide")
 st.markdown("<style>body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }</style>", unsafe_allow_html=True)
 
-st.title("🛡️ SECURE RAG & COMPLIANCE — BUỔI 17")
+st.title("🛡️ SECURE RAG & COMPLIANCE - BUỔI 19 (Ollama/Gemini)")
 st.info("Demo đào tạo — kết quả AI cần kiểm toán viên xác minh.")
 
 st.sidebar.header("Thông tin User (Demo)")
