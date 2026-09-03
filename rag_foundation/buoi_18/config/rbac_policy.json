@@ -1,0 +1,61 @@
+{
+  "roles": {
+    "Admin": {
+      "description": "Toàn quyền hệ thống",
+      "allowed_scopes": [
+        "ADMIN",
+        "HR",
+        "RISK",
+        "STAFF",
+        "COMMON",
+        "PUBLIC",
+        "ALL"
+      ]
+    },
+    "KiemToanVien": {
+      "description": "Kiểm toán viên nội bộ",
+      "allowed_scopes": [
+        "ADMIN",
+        "HR",
+        "RISK",
+        "STAFF",
+        "COMMON",
+        "PUBLIC",
+        "ALL"
+      ]
+    },
+    "Risk_Manager": {
+      "description": "Quản lý Rủi ro",
+      "allowed_scopes": [
+        "RISK",
+        "STAFF",
+        "COMMON",
+        "PUBLIC",
+        "ALL"
+      ]
+    },
+    "HR": {
+      "description": "Tổ chức Cán bộ",
+      "allowed_scopes": [
+        "HR",
+        "STAFF",
+        "COMMON",
+        "PUBLIC",
+        "ALL"
+      ]
+    },
+    "Staff": {
+      "description": "Cán bộ nhân viên",
+      "allowed_scopes": [
+        "STAFF",
+        "COMMON",
+        "PUBLIC",
+        "ALL"
+      ]
+    },
+    "Guest": {
+      "description": "Khách vãng lai",
+      "allowed_scopes": []
+    }
+  }
+}

@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: agribank-ollama-server
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+  app:
+    build: .
+    container_name: agribank-ai-app
+    ports:
+      - "8501:8501"
+    environment:
+      - LLM_PROVIDER=ollama
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_MODEL=qwen2.5:0.5b
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    depends_on:
+      - ollama
+    volumes:
+      - .:/app
+      - ../buoi_16:/app/../buoi_16
+
+volumes:
+  ollama_data:
