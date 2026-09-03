@@ -9,6 +9,8 @@ if str(base_dir) not in sys.path:
     sys.path.insert(0, str(base_dir))
 
 from scripts.llm_uc3_uc4 import RealAIEngine
+from dotenv import load_dotenv
+load_dotenv(base_dir.parent / "buoi_17" / ".env")
 
 st.set_page_config(page_title="AI Compliance & Audit Checklist — Buổi 18 (Real AI)", page_icon="🏦", layout="wide")
 
@@ -41,6 +43,8 @@ with tab1:
             results = engine.check_conflicts(domain_sel, user_role=role, user_id=user_id)
             if not results:
                 st.success("✅ AI đã rà soát và KHÔNG tìm thấy bất kỳ xung đột nào giữa các quy định, hoặc bạn không có quyền truy cập.")
+            elif "error" in results[0]:
+                st.error(f"⛔ Lỗi Gemini: {results[0]['error']}")
             else:
                 df_res = pd.DataFrame(results)
                 st.error(f"⛔ Phát hiện {len(df_res)} điểm có nguy cơ xung đột!")
@@ -81,10 +85,12 @@ with tab2:
             results = engine.generate_checklist(chk_domain, chk_unit, user_role=role, user_id=user_id)
             if not results:
                 st.error("⛔ Bạn không có quyền truy cập quy định này hoặc hệ thống không tìm thấy.")
+            elif "error" in results[0]:
+                st.error(f"⛔ Lỗi Gemini: {results[0]['error']}")
             else:
-                df_chk = pd.DataFrame(results)
-                st.success(f"✅ AI đã lập thành công {len(df_chk)} mục kiểm tra thực tế!")
-                for _, r in df_chk.iterrows():
+                df_res = pd.DataFrame(results)
+                st.success(f"✅ AI đã lập thành công {len(df_res)} mục kiểm tra thực tế!")
+                for _, r in df_res.iterrows():
                     with st.expander(f"📌 {r.get('item_id', 'CHK')}: {r.get('audit_question')}"):
                         st.markdown(f"**Rủi ro tiềm ẩn:** {r.get('risk_description')}")
                         st.markdown(f"**Mức rủi ro:** `{r.get('risk_level')}` | **Căn cứ pháp lý:** `{r.get('source_citation')}`")

@@ -16,8 +16,12 @@ from scripts.audit_logger import log_audit_event
 class RealAIEngine:
     def __init__(self):
         self.retriever = SecureRetrievalAdapter()
-        # Dùng gemini flash mới nhất để đảm bảo không bị lỗi 429
-        self.model = genai.GenerativeModel('gemini-flash-latest')
+        # Ensure API key is loaded
+        api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+        if api_key:
+            genai.configure(api_key=api_key)
+        # Đổi sang gemini-3.7-flash để dùng một "rổ" hạn mức (quota) hoàn toàn mới 
+        self.model = genai.GenerativeModel('gemini-3.7-flash')
 
     def check_conflicts(self, domain, user_role, user_id):
         # 1. Retrieve documents related to domain
@@ -31,7 +35,8 @@ class RealAIEngine:
         doc_ids = []
         for r in results:
             doc_ids.append(r["document_id"])
-            context_str += f"--- NGUỒN: {r['title']} ---\n{r['text']}\n\n"
+            chunk_text = r['text'][:1500] + "...(lược bớt)" if len(r['text']) > 1500 else r['text']
+            context_str += f"--- NGUỒN: {r['title']} ---\n{chunk_text}\n\n"
 
         prompt = f"""Bạn là Chuyên gia Kiểm toán Ngân hàng.
 Hãy đọc các văn bản quy định dưới đây và tìm xem có bất kỳ sự CHÊNH LỆCH hoặc XUNG ĐỘT nào giữa chúng không.
@@ -58,7 +63,9 @@ Hãy liệt kê các điểm mâu thuẫn (nếu có). Trả lời ngắn gọn 
 Chỉ trả về JSON array, không kèm markdown. Nếu không có xung đột, trả về mảng rỗng []"""
         
         try:
-            response = self.model.generate_content(prompt)
+            # Tăng output token lên 2048 để tránh việc sinh JSON bị cắt ngang giữa chừng
+            config = genai.types.GenerationConfig(max_output_tokens=2048)
+            response = self.model.generate_content(prompt, generation_config=config)
             txt = response.text.replace("```json", "").replace("```", "").strip()
             import json
             out = json.loads(txt)
@@ -69,7 +76,7 @@ Chỉ trả về JSON array, không kèm markdown. Nếu không có xung đột,
             return out
         except Exception as e:
             print("LLM Error:", e)
-            return []
+            return [{"error": f"LLM Error: {str(e)}"}]
 
     def generate_checklist(self, domain, unit, user_role, user_id):
         query = f"Quy định về {domain} áp dụng cho {unit}"
@@ -82,7 +89,8 @@ Chỉ trả về JSON array, không kèm markdown. Nếu không có xung đột,
         doc_ids = []
         for r in results:
             doc_ids.append(r["document_id"])
-            context_str += f"--- NGUỒN: {r['title']} ---\n{r['text']}\n\n"
+            chunk_text = r['text'][:1500] + "...(lược bớt)" if len(r['text']) > 1500 else r['text']
+            context_str += f"--- NGUỒN: {r['title']} ---\n{chunk_text}\n\n"
 
         prompt = f"""Bạn là Trưởng đoàn Kiểm toán Nội bộ.
 Dựa vào các quy định dưới đây, hãy lập một danh sách Checklist (các câu hỏi kiểm tra) dành cho đợt kiểm toán tại {unit} về mảng {domain}.
@@ -107,7 +115,8 @@ Trả về định dạng JSON array:
 Chỉ trả về JSON array, không kèm markdown."""
         
         try:
-            response = self.model.generate_content(prompt)
+            config = genai.types.GenerationConfig(max_output_tokens=2048)
+            response = self.model.generate_content(prompt, generation_config=config)
             txt = response.text.replace("```json", "").replace("```", "").strip()
             import json
             out = json.loads(txt)
@@ -118,4 +127,4 @@ Chỉ trả về JSON array, không kèm markdown."""
             return out
         except Exception as e:
             print("LLM Error:", e)
-            return []
+            return [{"error": f"LLM Error: {str(e)}"}]
